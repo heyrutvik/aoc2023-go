@@ -61,7 +61,7 @@ func (t *Trebuchet) Desc() {
 func (t *Trebuchet) Solve() {
 	total := 0
 	for _, line := range t.Lines {
-		s := sensitize(line)
+		s := sanitize(line)
 		val, err := calibrationValue(s)
 		if err != nil {
 			panic(err.Error())
@@ -71,7 +71,7 @@ func (t *Trebuchet) Solve() {
 	fmt.Println("Solution:", total)
 }
 
-func sensitize(s string) (r string) {
+func sanitize(s string) (r string) {
 	r = loop(s, "", false)
 	return
 }
