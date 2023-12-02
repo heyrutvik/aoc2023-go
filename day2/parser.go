@@ -45,21 +45,20 @@ func gameNode(pn []parsec.ParsecNode) parsec.ParsecNode {
 	return Game{value}
 }
 
-// TODO can we write colorNode function generically?
-func redNode(pn []parsec.ParsecNode) parsec.ParsecNode {
-	value, _ := strconv.Atoi(pn[0].(*parsec.Terminal).Value)
-	return Red{value}
+type Color interface {
+	Red | Green | Blue
 }
 
-func greenNode(pn []parsec.ParsecNode) parsec.ParsecNode {
-	value, _ := strconv.Atoi(pn[0].(*parsec.Terminal).Value)
-	return Green{value}
+func colorNode[T Color](create func(int) T) func([]parsec.ParsecNode) parsec.ParsecNode {
+	return func(pn []parsec.ParsecNode) parsec.ParsecNode {
+		value, _ := strconv.Atoi(pn[0].(*parsec.Terminal).Value)
+		return create(value)
+	}
 }
 
-func blueNode(pn []parsec.ParsecNode) parsec.ParsecNode {
-	value, _ := strconv.Atoi(pn[0].(*parsec.Terminal).Value)
-	return Blue{value}
-}
+var redNode = colorNode[Red](func(v int) Red { return Red{v} })
+var greenNode = colorNode[Green](func(v int) Green { return Green{v} })
+var blueNode = colorNode[Blue](func(v int) Blue { return Blue{v} })
 
 func oneOfTheThreeColorNode(pn []parsec.ParsecNode) parsec.ParsecNode {
 	return pn[0]
