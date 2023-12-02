@@ -29,12 +29,22 @@ type Comb struct {
 	Sets []Set
 }
 
+type Color interface {
+	Red | Green | Blue
+}
+
+type Create[T any] func(int) T
+
+var createRed Create[Red] = func(value int) Red { return Red{value} }
+var createGreen Create[Green] = func(value int) Green { return Green{value} }
+var createBlue Create[Blue] = func(value int) Blue { return Blue{value} }
+
 var num = parsec.Int()
 
 var game = parsec.And(gameNode, parsec.Atom("Game", "GAME"), num)
-var red = parsec.And(redNode, num, parsec.Atom("red", "RED"))
-var green = parsec.And(greenNode, num, parsec.Atom("green", "GREEN"))
-var blue = parsec.And(blueNode, num, parsec.Atom("blue", "BLUE"))
+var red = parsec.And(colorNode[Red](createRed), num, parsec.Atom("red", "RED"))
+var green = parsec.And(colorNode[Green](createGreen), num, parsec.Atom("green", "GREEN"))
+var blue = parsec.And(colorNode[Blue](createBlue), num, parsec.Atom("blue", "BLUE"))
 var color = parsec.OrdChoice(oneOfTheThreeColorNode, red, green, blue)
 var set = parsec.Many(setNode, color, parsec.Atom(",", "COLOR SEPARATOR"))
 var sets = parsec.Many(setsNode, set, parsec.Atom(";", "SET SEPARATOR"))
@@ -45,20 +55,12 @@ func gameNode(pn []parsec.ParsecNode) parsec.ParsecNode {
 	return Game{value}
 }
 
-type Color interface {
-	Red | Green | Blue
-}
-
-func colorNode[T Color](create func(int) T) func([]parsec.ParsecNode) parsec.ParsecNode {
+func colorNode[T Color](create Create[T]) parsec.Nodify {
 	return func(pn []parsec.ParsecNode) parsec.ParsecNode {
 		value, _ := strconv.Atoi(pn[0].(*parsec.Terminal).Value)
 		return create(value)
 	}
 }
-
-var redNode = colorNode[Red](func(v int) Red { return Red{v} })
-var greenNode = colorNode[Green](func(v int) Green { return Green{v} })
-var blueNode = colorNode[Blue](func(v int) Blue { return Blue{v} })
 
 func oneOfTheThreeColorNode(pn []parsec.ParsecNode) parsec.ParsecNode {
 	return pn[0]
