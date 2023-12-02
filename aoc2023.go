@@ -54,7 +54,7 @@ func main() {
 
 		switch day {
 		case 1:
-			puzzle = day1.MakeTrebuchet("./day1/input")
+			puzzle = day1.MakeTrebuchet()
 			solution(puzzle)
 		default:
 			fmt.Print("The solution of the day", day, "does not exist yet.\n\n")
