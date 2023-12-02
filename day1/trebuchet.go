@@ -2,6 +2,8 @@ package day1
 
 import (
 	"fmt"
+
+	"github.com/heyrutvik/aoc2023/utils"
 )
 
 type Trebuchet struct {
@@ -11,7 +13,7 @@ type Trebuchet struct {
 
 func MakeTrebuchet() *Trebuchet {
 	return &Trebuchet{
-		Lines: readLines("./day1/input.txt"),
+		Lines: utils.ReadLines("./day1/input.txt"),
 		Proc:  MakeProcessor2(),
 	}
 }

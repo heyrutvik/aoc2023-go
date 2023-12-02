@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/heyrutvik/aoc2023/day1"
+	"github.com/heyrutvik/aoc2023/day2"
 )
 
 type Puzzle interface {
@@ -55,6 +56,9 @@ func main() {
 		switch day {
 		case 1:
 			puzzle = day1.MakeTrebuchet()
+			solution(puzzle)
+		case 2:
+			puzzle = day2.MakeCubeConundrum()
 			solution(puzzle)
 		default:
 			fmt.Print("The solution of the day", day, "does not exist yet.\n\n")
