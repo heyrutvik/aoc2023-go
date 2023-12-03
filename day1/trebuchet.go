@@ -8,13 +8,18 @@ import (
 
 type Trebuchet struct {
 	Lines []string
-	Proc  Processor
+	Part  Part
 }
 
-func MakeTrebuchet() *Trebuchet {
+func MakeTrebuchet(part int) *Trebuchet {
+	var p Part
+	p = MakePart1()
+	if part == 2 {
+		p = MakePart2Attempt2()
+	}
 	return &Trebuchet{
 		Lines: utils.ReadLines("./day1/input.txt"),
-		Proc:  MakeProcessor2(),
+		Part:  p,
 	}
 }
 
@@ -26,8 +31,8 @@ func (t *Trebuchet) Desc() {
 func (t *Trebuchet) Solve() {
 	total := 0
 	for _, line := range t.Lines {
-		s := t.Proc.Clean(line)
-		val, err := t.Proc.Calibrate(s)
+		s := t.Part.Clean(line)
+		val, err := t.Part.Calibrate(s)
 		if err != nil {
 			panic(err.Error())
 		}

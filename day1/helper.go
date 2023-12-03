@@ -1,6 +1,6 @@
 package day1
 
-type Processor interface {
+type Part interface {
 	Clean(line string) string
 	Calibrate(line string) (val int, err error)
 }

@@ -17,7 +17,7 @@ func TestReverseString(t *testing.T) {
 }
 
 func TestFirstNumber(t *testing.T) {
-	p := MakeProcessor1()
+	p := MakePart2Attempt1()
 	num, _ := firstNumber("abc2def")
 	validate(t, 2, num)
 	num, _ = firstNumber("2abcdef")
@@ -34,7 +34,7 @@ func TestFirstNumberFailed(t *testing.T) {
 }
 
 func TestCalibrationValue(t *testing.T) {
-	p := MakeProcessor1()
+	p := MakePart2Attempt1()
 	val, _ := p.Calibrate("abc2def")
 	validate(t, 22, val)
 	val, _ = p.Calibrate("a1bc2def")
@@ -64,7 +64,7 @@ func TestCalibrationValue(t *testing.T) {
 }
 
 func TestSanitizeInput(t *testing.T) {
-	p := MakeProcessor1()
+	p := MakePart2Attempt1()
 	validate(t, "abcd", p.Clean("abcd"))
 	validate(t, "123456789", p.Clean("onetwothreefourfivesixseveneightnine"))
 }

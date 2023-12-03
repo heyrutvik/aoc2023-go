@@ -7,10 +7,10 @@ import (
 	"unicode"
 )
 
-type Processor2 struct{}
+type Part2Attempt2 struct{}
 
-func MakeProcessor2() *Processor2 {
-	return &Processor2{}
+func MakePart2Attempt2() *Part2Attempt2 {
+	return &Part2Attempt2{}
 }
 
 // rest: one2sevenine acc:
@@ -27,7 +27,7 @@ func MakeProcessor2() *Processor2 {
 // rest: e            acc: 1279
 // rest:              acc: 1279
 
-func (p *Processor2) Clean(line string) string {
+func (p *Part2Attempt2) Clean(line string) string {
 	var loop func(string, string) string
 	loop = func(rest string, acc string) string {
 		if len(rest) == 0 {
@@ -60,7 +60,7 @@ func isPrefixDigit(line string) (val int, isDigit bool) {
 	return
 }
 
-func (p *Processor2) Calibrate(line string) (val int, err error) {
+func (p *Part2Attempt2) Calibrate(line string) (val int, err error) {
 	l := len(line)
 	a, b := line[0], line[l-1]
 	val, _ = strconv.Atoi(string([]byte{a, b}))

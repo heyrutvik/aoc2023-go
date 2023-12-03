@@ -9,10 +9,10 @@ import (
 	"github.com/heyrutvik/aoc2023/utils"
 )
 
-type Processor1 struct{}
+type Part2Attempt1 struct{}
 
-func MakeProcessor1() *Processor1 {
-	return &Processor1{}
+func MakePart2Attempt1() *Part2Attempt1 {
+	return &Part2Attempt1{}
 }
 
 // rest: one2sevenine acc:      wasDigitInWords: false
@@ -22,7 +22,7 @@ func MakeProcessor1() *Processor1 {
 // rest: nine         acc: 127  wasDigitInWords: false
 // rest: e            acc: 1279 wasDigitInWords: true
 
-func (p *Processor1) Clean(line string) string {
+func (p *Part2Attempt1) Clean(line string) string {
 	var loop func(string, string, bool) string
 	loop = func(rest string, acc string, wasDigitInWords bool) string {
 		// if the length of the rest of the string is empty OR
@@ -64,7 +64,7 @@ func (p *Processor1) Clean(line string) string {
 	return loop(line, "", false)
 }
 
-func (p *Processor1) Calibrate(line string) (val int, err error) {
+func (p *Part2Attempt1) Calibrate(line string) (val int, err error) {
 	n1, err := firstNumber(line)
 	n2, _ := firstNumber(utils.Reverse(line)) // no need to check error here
 	val, _ = strconv.Atoi(fmt.Sprint(n1) + fmt.Sprint(n2))

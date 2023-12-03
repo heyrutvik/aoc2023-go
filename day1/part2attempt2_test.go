@@ -2,8 +2,8 @@ package day1
 
 import "testing"
 
-func TestCalibrationValue1(t *testing.T) {
-	p := MakeProcessor2()
+func TestCalibrationValue2(t *testing.T) {
+	p := MakePart2Attempt2()
 	val, _ := p.Calibrate("2")
 	validate(t, 22, val)
 	val, _ = p.Calibrate("12")
@@ -32,8 +32,8 @@ func TestCalibrationValue1(t *testing.T) {
 	validate(t, 79, val)
 }
 
-func TestSanitizeInput1(t *testing.T) {
-	p := MakeProcessor2()
+func TestSanitizeInput2(t *testing.T) {
+	p := MakePart2Attempt2()
 	validate(t, "", p.Clean("abcd"))
 	validate(t, "123456789", p.Clean("onetwothreefourfivesixseveneightnine"))
 }

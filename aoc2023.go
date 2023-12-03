@@ -30,17 +30,30 @@ func main() {
 			os.Exit(0)
 		}
 
+		part := 1
+		if len(args) == 4 {
+			if args[2] == "--part" || args[2] == "-p" {
+				part, err = strconv.Atoi(args[3])
+				if err != nil {
+					if part < 1 || part > 2 {
+						fmt.Println("help: --part expects either 1 or 2. [default: 1]")
+						os.Exit(0)
+					}
+				}
+			}
+		}
+
 		var puzzle Puzzle
 
 		switch day {
 		case 1:
-			puzzle = day1.MakeTrebuchet()
+			puzzle = day1.MakeTrebuchet(part)
 			solution(puzzle)
 		case 2:
-			puzzle = day2.MakeCubeConundrum()
+			puzzle = day2.MakeCubeConundrum(part)
 			solution(puzzle)
 		case 3:
-			puzzle = day3.MakeGearRatios()
+			puzzle = day3.MakeGearRatios(part)
 			solution(puzzle)
 		default:
 			fmt.Println("The solution of the day", day, "does not exist yet.")

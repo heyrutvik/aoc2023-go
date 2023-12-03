@@ -4,9 +4,9 @@ import (
 	"testing"
 )
 
-func MakeGearRatiosTest() *GearRatios {
+func MakeGearRatiosTest(part Part) *GearRatios {
 	return &GearRatios{
-		[]string{
+		Lines: []string{
 			"467..114..",
 			"...*......",
 			"..35..633.",
@@ -18,15 +18,16 @@ func MakeGearRatiosTest() *GearRatios {
 			"...$.*....",
 			".664.598..",
 		},
+		Part: part,
 	}
 }
 
 func TestPart1(t *testing.T) {
-	g := MakeGearRatiosTest()
+	g := MakeGearRatiosTest(&Part1{})
 	numbers := make(map[Location]int)
 	for row, line := range g.Lines {
 		for col, c := range line {
-			g.Part1(&numbers, row, col, c)
+			g.Part.Solve(&g.Lines, &numbers, row, col, c)
 		}
 	}
 	want := 4361
@@ -37,11 +38,11 @@ func TestPart1(t *testing.T) {
 }
 
 func TestPart2(t *testing.T) {
-	g := MakeGearRatiosTest()
+	g := MakeGearRatiosTest(&Part2{})
 	numbers := make(map[Location]int)
 	for row, line := range g.Lines {
 		for col, c := range line {
-			g.Part2(&numbers, row, col, c)
+			g.Part.Solve(&g.Lines, &numbers, row, col, c)
 		}
 	}
 	want := 467835

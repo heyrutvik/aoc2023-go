@@ -8,10 +8,11 @@ motivation is to get enough muscle memory to read them effortlessly.
 
 ### check solution
 ```bash
-go run aoc2023.go -- --day <day>
+go run aoc2023.go -- --day <day> --part <part>
 ```
 
 `<day>` expects a number between 1 and 25.
+`<part>` (optional; default: 1) expects either 1 or 2.
 
 ### run tests
 ```bash

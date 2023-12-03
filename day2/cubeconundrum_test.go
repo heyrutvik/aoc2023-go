@@ -16,7 +16,7 @@ func TestResultPart1(t *testing.T) {
 	total := 0
 	for _, input := range inputs {
 		comb := Parse(input)
-		total = Part1(comb, total)
+		total = (&Part1{}).Solve(comb, total)
 	}
 
 	want := 8
@@ -30,7 +30,7 @@ func TestResultPart2(t *testing.T) {
 	total := 0
 	for _, input := range inputs {
 		comb := Parse(input)
-		total = Part2(comb, total)
+		total = (&Part2{}).Solve(comb, total)
 	}
 
 	want := 2286

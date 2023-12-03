@@ -8,11 +8,18 @@ import (
 
 type CubeConundrum struct {
 	Lines []string
+	Part  Part
 }
 
-func MakeCubeConundrum() *CubeConundrum {
+func MakeCubeConundrum(part int) *CubeConundrum {
+	var p Part
+	p = &Part1{}
+	if part == 2 {
+		p = &Part2{}
+	}
 	return &CubeConundrum{
 		Lines: utils.ReadLines("./day2/input.txt"),
+		Part:  p,
 	}
 }
 
@@ -25,12 +32,14 @@ func (c *CubeConundrum) Solve() {
 	total := 0
 	for _, line := range c.Lines {
 		comb := Parse(line)
-		total = Part2(comb, total)
+		total = c.Part.Solve(comb, total)
 	}
 	fmt.Println("Solution:", total)
 }
 
-func Part1(comb Comb, total int) (result int) {
+type Part1 struct{}
+
+func (p *Part1) Solve(comb Comb, total int) (result int) {
 	result = total
 	exlcude := false
 	for _, set := range comb.Sets {
@@ -45,7 +54,9 @@ func Part1(comb Comb, total int) (result int) {
 	return
 }
 
-func Part2(comb Comb, total int) int {
+type Part2 struct{}
+
+func (p *Part2) Solve(comb Comb, total int) int {
 	red, green, blue := 1, 1, 1
 	for _, set := range comb.Sets {
 		if red < set.Red {

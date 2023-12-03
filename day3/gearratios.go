@@ -10,11 +10,18 @@ import (
 
 type GearRatios struct {
 	Lines []string
+	Part  Part
 }
 
-func MakeGearRatios() *GearRatios {
+func MakeGearRatios(part int) *GearRatios {
+	var p Part
+	p = &Part1{}
+	if part == 2 {
+		p = &Part2{}
+	}
 	return &GearRatios{
 		Lines: utils.ReadLines("./day3/input.txt"),
+		Part:  p,
 	}
 }
 
@@ -27,7 +34,7 @@ func (g *GearRatios) Solve() {
 	numbers := make(map[Location]int)
 	for row, line := range g.Lines {
 		for col, c := range line {
-			g.Part2(&numbers, row, col, c)
+			g.Part.Solve(&g.Lines, &numbers, row, col, c)
 		}
 	}
 	fmt.Println("Solution:", Reduce(&numbers))
@@ -47,10 +54,10 @@ func (n *Number) setValue(value int) {
 	n.value = value
 }
 
-func (g *GearRatios) adjacentNumbers(point Location) (nums []Number) {
+func adjacentNumbers(lines *[]string, point Location) (nums []Number) {
 	locations := adjacentLocations(point)
 	for _, loc := range locations {
-		line := g.Lines[loc.row]
+		line := (*lines)[loc.row]
 		num, col, err := numberAt(line, loc.col)
 		if err == nil {
 			nums = append(nums, Number{num, Location{loc.row, col}})
@@ -60,10 +67,12 @@ func (g *GearRatios) adjacentNumbers(point Location) (nums []Number) {
 	return
 }
 
-func (g *GearRatios) Part1(numbers *map[Location]int, row int, col int, symbol rune) {
+type Part1 struct{}
+
+func (p *Part1) Solve(lines *[]string, numbers *map[Location]int, row int, col int, symbol rune) {
 	if isSymbol(symbol) {
 		point := Location{row, col}
-		nums := g.adjacentNumbers(point)
+		nums := adjacentNumbers(lines, point)
 		for _, num := range nums {
 			_, exist := (*numbers)[num.location]
 			if !exist {
@@ -73,10 +82,12 @@ func (g *GearRatios) Part1(numbers *map[Location]int, row int, col int, symbol r
 	}
 }
 
-func (g *GearRatios) Part2(numbers *map[Location]int, row int, col int, symbol rune) {
+type Part2 struct{}
+
+func (p *Part2) Solve(lines *[]string, numbers *map[Location]int, row int, col int, symbol rune) {
 	if isSymbol(symbol) {
 		point := Location{row, col}
-		nums := g.adjacentNumbers(point)
+		nums := adjacentNumbers(lines, point)
 
 		if symbol == rune('*') && len(nums) == 2 {
 			// dirty way!?
