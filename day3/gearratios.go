@@ -78,8 +78,6 @@ func (g *GearRatios) Part2(numbers *map[Location]int, row int, col int, symbol r
 		point := Location{row, col}
 		nums := g.adjacentNumbers(point)
 
-		fmt.Println("symbol", string(symbol), "before nums :", nums)
-
 		if symbol == rune('*') && len(nums) == 2 {
 			// dirty way!?
 			ratio := nums[0].value * nums[1].value
