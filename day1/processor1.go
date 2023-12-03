@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+
+	"github.com/heyrutvik/aoc2023/utils"
 )
 
 type Processor1 struct{}
@@ -64,17 +66,9 @@ func (p *Processor1) Clean(line string) string {
 
 func (p *Processor1) Calibrate(line string) (val int, err error) {
 	n1, err := firstNumber(line)
-	n2, _ := firstNumber(reverse(line)) // no need to check error here
+	n2, _ := firstNumber(utils.Reverse(line)) // no need to check error here
 	val, _ = strconv.Atoi(fmt.Sprint(n1) + fmt.Sprint(n2))
 	return
-}
-
-func reverse(s string) string {
-	var result string
-	for _, c := range s {
-		result = string(c) + result
-	}
-	return result
 }
 
 func firstNumber(s string) (num int, err error) {

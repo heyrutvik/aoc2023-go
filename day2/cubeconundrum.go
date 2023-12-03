@@ -16,14 +16,14 @@ func MakeCubeConundrum() *CubeConundrum {
 	}
 }
 
-func (t *CubeConundrum) Desc() {
+func (c *CubeConundrum) Desc() {
 	fmt.Println("Puzzle:  ", "Cube Conundrum")
 	fmt.Println("Link:    ", "https://adventofcode.com/2023/day/2")
 }
 
-func (t *CubeConundrum) Solve() {
+func (c *CubeConundrum) Solve() {
 	total := 0
-	for _, line := range t.Lines {
+	for _, line := range c.Lines {
 		comb := Parse(line)
 		total = Part2(comb, total)
 	}

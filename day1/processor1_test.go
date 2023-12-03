@@ -1,6 +1,10 @@
 package day1
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/heyrutvik/aoc2023/utils"
+)
 
 func validate(t *testing.T, want any, got any) {
 	if got != want {
@@ -9,7 +13,7 @@ func validate(t *testing.T, want any, got any) {
 }
 
 func TestReverseString(t *testing.T) {
-	validate(t, "dcba", reverse("abcd"))
+	validate(t, "dcba", utils.Reverse("abcd"))
 }
 
 func TestFirstNumber(t *testing.T) {
