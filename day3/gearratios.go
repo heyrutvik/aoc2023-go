@@ -63,7 +63,8 @@ func adjacentNumbers(lines *[]string, point Location) (nums []Number) {
 			nums = append(nums, Number{num, Location{loc.row, col}})
 		}
 	}
-	nums = utils.MakeSet[Number](nums).Elements()
+	set := utils.MakeSet[Number](nums)
+	nums = (&set).Elements()
 	return
 }
 
@@ -154,6 +155,7 @@ func adjacentLocations(point Location) (locations []Location) {
 		}
 	}
 
-	locations = utils.MakeSet[Location](locations).Elements()
+	set := utils.MakeSet[Location](locations)
+	locations = (&set).Elements()
 	return
 }
