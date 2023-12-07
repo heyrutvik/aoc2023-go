@@ -10,6 +10,7 @@ import (
 	"github.com/heyrutvik/aoc2023/day3"
 	"github.com/heyrutvik/aoc2023/day4"
 	"github.com/heyrutvik/aoc2023/day5"
+	"github.com/heyrutvik/aoc2023/day6"
 )
 
 type Puzzle interface {
@@ -62,6 +63,9 @@ func main() {
 			solution(puzzle)
 		case 5:
 			puzzle = day5.MakeSeedFertilizer(part)
+			solution(puzzle)
+		case 6:
+			puzzle = day6.MakeWaitForIt(part)
 			solution(puzzle)
 		default:
 			fmt.Println("The solution of the day", day, "does not exist yet.")
